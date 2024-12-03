@@ -14,36 +14,49 @@ public class Flight {
     private ArrayList<Booking> bookingList = new ArrayList<Booking>();
 
     public Flight() {
-        this("OD0001", "Batik Air",
+        this("OD0001", "Batik Air", "JHB",
                 new Date(2024, 11, 28, 10, 15, 00),
                 new Date(2024, 11, 28, 11, 00, 00));
     }
-    public Flight(String airplaneID, String airplaneName, Date timeDeparture, Date timeArrival) {
+    public Flight(String airplaneID, String airplaneName, String departDestination, Date timeDeparture, Date timeArrival) {
         this.airplaneID = airplaneID;
         this.airplaneName = airplaneName;
         this.timeDeparture = timeDeparture;
         this.timeArrival = timeArrival;
+        this.departDestination = departDestination;
     }
 
-//    public Flight searchFlight(String origin, String destination, Date departDate) {
-//        if(this.origin.equals(origin) && this.destination.equals(destination) && this.departDate.equals(departDate)) {
-//            return this;
-//        }
-//        return null;
-//    }
+    public int calcDuration() {
+        // To find differences between two date objects
+
+        long duration = (timeArrival.getTime() - timeDeparture.getTime()) / 1000 / 60;
+
+        // type cast to int data type
+        return (int)duration;
+    }
+
+    public Flight searchFlight(String origin, Date departure) {
+        if(this.departDestination.equals(origin) && this.timeDeparture.equals(departure)) {
+//            System.out.println("Flight found!");
+            return this;
+        } else {
+//            System.out.println("Flight not found!");
+            return null;
+        }
+    }
 
 
     @Override
     public String toString() {
         return "Flight{" +
-                "airplaneID='" + airplaneID + '\'' +
-                ", airplaneName='" + airplaneName + '\'' +
+                "airplaneID='" + airplaneID + '\n' +
+                ", airplaneName='" + airplaneName + '\n' +
                 ", timeDeparture=" + timeDeparture +
                 ", timeArrival=" + timeArrival +
-                ", gate='" + gate + '\'' +
-                ", departDestination='" + departDestination + '\'' +
-                ", arriveDestination='" + arriveDestination + '\'' +
-                ", bookingList=" + bookingList +
+//                ", gate='" + gate + '\'' +
+                ", departDestination='" + departDestination + '\n' +
+//                ", arriveDestination='" + arriveDestination + '\'' +
+//                ", bookingList=" + bookingList +
                 '}';
     }
 }
